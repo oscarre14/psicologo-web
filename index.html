@@ -262,6 +262,47 @@
             cursor: pointer;
             z-index: 2;
         }
+        .faq-item {
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+        .faq-question {
+            width: 100%;
+            text-align: left;
+            background: none;
+            border: none;
+            padding: 15px 0;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: var(--text-dark);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        .faq-answer p {
+            padding-bottom: 15px;
+            margin: 0;
+            color: #555;
+        }
+        .btn-test {
+            background-color: var(--white);
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-test:hover {
+            background-color: var(--primary);
+            color: var(--white);
+        }
     </style>
 </head>
 <body>
@@ -369,6 +410,49 @@
         </div>
     </section>
 
+    <!-- FUNCIONALIDAD 1: Test interactivo para atrapar clientes potenciales -->
+    <section id="test-estres" style="border: 2px solid var(--primary); border-radius: 12px; padding: 40px; margin-top: 40px; text-align: center; max-width: 900px; margin-left: auto; margin-right: auto;">
+        <h2>Termómetro Emocional</h2>
+        <p>Realiza este test rápido de 3 preguntas para evaluar tu nivel de tensión actual.</p>
+        <div id="test-box">
+            <p id="pregunta-texto" style="font-size: 1.2em; font-weight: bold;">1. En la última semana, ¿te ha costado trabajo relajarte o desconectarte?</p>
+            <div style="display: flex; justify-content: center; gap: 10px; margin-top: 20px;">
+                <button type="button" class="btn-test" onclick="responderTest(3)">Casi siempre</button>
+                <button type="button" class="btn-test" onclick="responderTest(1)">A veces</button>
+                <button type="button" class="btn-test" onclick="responderTest(0)">Nunca</button>
+            </div>
+        </div>
+        <div id="resultado-test" style="display: none; background-color: #cfe8de; padding: 20px; border-radius: 10px; margin-top: 20px;">
+            <h3 id="resultado-titulo">Resultado</h3>
+            <p id="resultado-texto"></p>
+            <a href="#agendar" style="display: inline-block; background-color: var(--primary); color: white; padding: 10px 20px; border-radius: 5px; text-decoration: none; font-weight: bold;">Agendar Consulta</a>
+        </div>
+    </section>
+
+    <!-- FUNCIONALIDAD 2: Preguntas Frecuentes para derribar barreras -->
+    <section id="faq" style="background-color: var(--light-bg); border-radius: 12px; padding: 40px; margin-top: 40px; max-width: 900px; margin-left: auto; margin-right: auto;">
+        <h2>Preguntas Frecuentes</h2>
+        <p style="margin-bottom: 20px;">Resolvemos tus dudas antes de dar el primer paso.</p>
+        <div class="faq-item">
+            <button class="faq-question">¿Qué pasa en la primera sesión? <span class="arrow">▼</span></button>
+            <div class="faq-answer"><p>La primera sesión es una plática para conocernos. Hablaremos de tus motivos de consulta, tu historia y estableceremos juntos los objetivos. Es un espacio totalmente libre de juicios.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">¿Cuánto dura la terapia y cada cuándo nos vemos? <span class="arrow">▼</span></button>
+            <div class="faq-answer"><p>Las sesiones duran 50 minutos. Por lo general empezamos viéndonos una vez por semana o cada 15 días, pero la frecuencia la acordamos según lo que tú vayas necesitando.</p></div>
+        </div>
+        <div class="faq-item">
+            <button class="faq-question">¿Tengo que llevar a mi familia si el enfoque es "Sistémico Familiar"? <span class="arrow">▼</span></button>
+            <div class="faq-answer"><p>¡No es obligatorio! El enfoque sistémico significa que analizamos cómo te afecta tu entorno (familia, pareja, amigos), pero la terapia puede ser perfectamente individual.</p></div>
+        </div>
+    </section>
+
+    <!-- FUNCIONALIDAD 3: Línea de Emergencia (Obligación ética en salud mental) -->
+    <div style="max-width: 900px; margin: 40px auto; text-align: center; padding: 20px; background-color: #fdf2f2; border: 1px solid #f5c6cb; color: #721c24; border-radius: 8px;">
+        <strong>¿Estás pasando por una crisis emocional urgente?</strong><br>
+        La terapia psicológica de consultorio no es un servicio de emergencia. Si tú o alguien que conoces está en peligro inmediato, comunícate al <strong>911</strong> o a la <strong>Línea de la Vida en México (800 911 2000)</strong> las 24 horas del día.
+    </div>
+
     <!-- 7. SEO local (Footer con datos de ubicación) -->
     <footer>
         <p style="font-size: 1.2em;"><strong>Lic. Alonso Orozco</strong></p>
@@ -439,6 +523,51 @@
                 }
             });
         });
+
+        // === Lógica visual para Preguntas Frecuentes ===
+        document.querySelectorAll('.faq-question').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const answer = btn.nextElementSibling;
+                const arrow = btn.querySelector('.arrow');
+                if (answer.style.maxHeight) {
+                    answer.style.maxHeight = null;
+                    arrow.textContent = "▼";
+                } else {
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                    arrow.textContent = "▲";
+                }
+            });
+        });
+
+        // === Lógica del Test Emocional ===
+        const preguntasTest = [
+            "1. En la última semana, ¿te ha costado trabajo relajarte o desconectarte?",
+            "2. ¿Has sentido que te irritas con facilidad o pierdes la paciencia rápido?",
+            "3. ¿Sientes preocupación constante que te dificulta dormir o concentrarte?"
+        ];
+        let preguntaActualTest = 0;
+        let puntajeTest = 0;
+
+        function responderTest(puntos) {
+            puntajeTest += puntos;
+            preguntaActualTest++;
+            
+            if (preguntaActualTest < preguntasTest.length) {
+                document.getElementById('pregunta-texto').textContent = preguntasTest[preguntaActualTest];
+            } else {
+                document.getElementById('test-box').style.display = 'none';
+                const resDiv = document.getElementById('resultado-test');
+                resDiv.style.display = 'block';
+                
+                if (puntajeTest >= 6) {
+                    document.getElementById('resultado-texto').innerHTML = "<strong>Tu nivel de tensión emocional es alto.</strong> Es muy recomendable tener un espacio terapéutico para descargar y ordenar estas emociones. ¡No tienes que cargar esto solo(a)!";
+                } else if (puntajeTest >= 3) {
+                    document.getElementById('resultado-texto').innerHTML = "<strong>Tienes un nivel moderado de tensión.</strong> La terapia te ayudaría mucho a prevenir que el estrés escale y afecte tu salud física y mental.";
+                } else {
+                    document.getElementById('resultado-texto').innerHTML = "<strong>Pareces estar manejando bien tu estrés.</strong> Recuerda que la terapia también es excelente para el crecimiento personal y autoconocimiento.";
+                }
+            }
+        }
 
         // === Lógica visual para los pickers de fecha y hora ===
         const meses = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
