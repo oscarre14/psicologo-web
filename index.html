@@ -9,7 +9,7 @@
     <!-- Meta tags para redes sociales (Open Graph) -->
     <meta property="og:title" content="Lic. Alonso Orozco | Psicólogo Internacional">
     <meta property="og:description" content="Especialista en Enfoque Sistémico Familiar. Agenda tu cita presencial u online.">
-    <meta property="og:image" content="https://psicologoweb.vercel.app/terapia_familiar.png">
+    <meta property="og:image" content="https://psicologoweb.vercel.app/thumbnail.jpg">
     <meta property="og:url" content="https://psicologoweb.vercel.app/">
     <meta property="og:type" content="website">
     
@@ -17,7 +17,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Lic. Alonso Orozco | Psicólogo Internacional">
     <meta name="twitter:description" content="Especialista en Enfoque Sistémico Familiar. Agenda tu cita presencial u online.">
-    <meta name="twitter:image" content="https://psicologoweb.vercel.app/terapia_familiar.png">
+    <meta name="twitter:image" content="https://psicologoweb.vercel.app/thumbnail.jpg">
     
     <style>
         :root {
@@ -254,12 +254,13 @@
         .picker-box input[type="date"],
         .picker-box input[type="time"] {
             position: absolute;
-            bottom: 0;
-            left: 50%;
+            top: 0;
+            left: 0;
             opacity: 0;
-            width: 1px;
-            height: 1px;
-            pointer-events: none;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            z-index: 2;
         }
     </style>
 </head>
@@ -325,12 +326,12 @@
                 <div class="picker-box">
                     <span class="picker-icon">🗓️</span>
                     <span class="picker-label" id="fecha-label">Toca aquí para elegir día</span>
-                    <input type="date" id="fecha" name="fecha" required>
+                    <input type="date" id="fecha" name="fecha" required onclick="if(this.showPicker) this.showPicker();">
                 </div>
                 <div class="picker-box">
                     <span class="picker-icon">🕐</span>
                     <span class="picker-label" id="hora-label">Toca aquí para elegir hora</span>
-                    <input type="time" id="hora" name="hora" required>
+                    <input type="time" id="hora" name="hora" required onclick="if(this.showPicker) this.showPicker();">
                 </div>
             </div>
 
